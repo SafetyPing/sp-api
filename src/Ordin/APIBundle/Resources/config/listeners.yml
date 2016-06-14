@@ -1,0 +1,15 @@
+services:
+    api.kernel.invalid_request_listener:
+    class:  Ordin\APIBundle\Validation\InvalidRequestExceptionListener
+    tags:
+        - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+    
+    api.kernel.authentication_exception_listener:
+        class:  Ordin\APIBundle\Authentication\AuthenticationExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+            
+    api.kernel.access_denied_exception_listener:
+        class:  Ordin\APIBundle\Authentication\AccessDeniedExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }  

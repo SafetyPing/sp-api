@@ -1,0 +1,17 @@
+imports:
+    - { resource: controllers.yml }
+    - { resource: listeners.yml }
+
+services:
+    api.model.param_converter:
+        class: Ordin\APIBundle\Model\ModelParamConverter
+        arguments: ['@serializer', '@validator']
+        tags:
+            - { name: request.param_converter, priority: -5, converter: app_api_param_converter }
+    
+    api.jms_serializer.naming_strategy:
+        class: Ordin\APIBundle\Serialization\IdenticalNamingStrategy
+        
+    api.authentication:
+        class: Ordin\APIBundle\Authentication\Authentication
+        arguments: ['%secret%', '%ordin_api_config%', '@doctrine.orm.entity_manager']
